@@ -10,7 +10,10 @@
     </div>
 
     <div class="content__catalog">
-      <ProductFilter :price-from.sync="filterPriceFrom" :price-to.sync="filterPriceTo" :category-id.sync="filterCategoryId"/>
+      <ProductFilter :price-from.sync="filterPriceFrom"
+                     :price-to.sync="filterPriceTo"
+                     :category-id.sync="filterCategoryId"
+                     :color-id.sync="filterColorId"/>
       <section class="catalog">
         <ProductList :products="products"/>
         <BasePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
@@ -30,13 +33,13 @@ import ProductFilter from './components/ProductFilter';
 
 export default {
   name: 'App',
-  // eslint-disable-next-line vue/no-unused-components
   components: { ProductList, BasePagination, ProductFilter },
   data() {
     return {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
+      filterColorId: 0,
       page: 1,
       productsPerPage: 3,
     };
@@ -52,6 +55,9 @@ export default {
       }
       if (this.filterCategoryId > 0) {
         filteredProducts = filteredProducts.filter((product) => product.categoryId === this.filterCategoryId);
+      }
+      if (this.filterColorId) {
+        filteredProducts = filteredProducts.filter((product) => product.colorId === this.filterColorId);
       }
       return filteredProducts;
     },
