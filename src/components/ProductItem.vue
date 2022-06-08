@@ -1,13 +1,12 @@
 <template>
   <div>
     <li class="catalog__item">
-      <a class="catalog__pic" href="#"
-         @click.prevent="gotoPage('product', {id: product.id})">
+      <router-link class="catalog__pic" :to="{ name: 'product', params: { id: product.id } }">
         <!--отправляем событие gotoPage с двумя параметрами первый параметр название страницы а второй id продукта-->
         <img :src="product.image" :alt="product.title">
-      </a>
+      </router-link>
       <h3 class="catalog__title">
-        <a href="#">{{ product.title }}</a>
+        <router-link :to="{ name: 'product', params: { id: product.id } }">{{ product.title }}</router-link>
       </h3>
       <span class="catalog__price">{{ product.price | numberFormat }} ₽</span>
     </li>
