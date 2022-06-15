@@ -24,6 +24,17 @@ export default new Vuex.Store({
         });
       }
     },
+    updateCartProductAmount(state, { productId, amount }) {
+      // eslint-disable-next-line no-shadow,max-len
+      const item = state.cartProducts.find((item) => item.productId === productId); // узнаем существует ли этот товар в корзине или нет
+      if (item) { // если товар в корзине существует
+        item.amount = amount; // меняем значение amount в состоянии
+      }
+    },
+    deleteCartProduct(state, productId) {
+      // eslint-disable-next-line max-len
+      state.cartProducts = state.cartProducts.filter((item) => item.productId !== productId); // удаляет товар в корзине по productId
+    },
   },
   getters: { // получаем инфу о товаре
     cartDetailProducts(state) {

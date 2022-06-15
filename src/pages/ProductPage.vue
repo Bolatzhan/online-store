@@ -83,22 +83,7 @@
             </fieldset>
 
             <div class="item__row">
-              <div class="form__counter">
-                <button type="button" aria-label="Убрать один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-minus"></use>
-                  </svg>
-                </button>
-
-                <input type="text" name="count" v-model.number="productAmount">
-
-                <button type="button" aria-label="Добавить один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-plus"></use>
-                  </svg>
-                </button>
-              </div>
-
+              <CartAmount :amount.sync="productAmount" />
               <button class="button button--primery" type="submit">
                 В корзину
               </button>
@@ -159,8 +144,11 @@ import products from '@/data/products';
 import categories from '@/data/categories';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
+// eslint-disable-next-line import/extensions
+import CartAmount from '@/components/CartAmount';
 
 export default {
+  components: { CartAmount },
   data() {
     return {
       productAmount: 1,
