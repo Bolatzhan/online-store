@@ -5,9 +5,7 @@
           <use xlink:href="#icon-minus"></use>
         </svg>
       </button>
-
       <input type="text" name="count" v-model.number="productAmount">
-
       <button type="button" aria-label="Добавить один товар" @click.prevent="productAmount++">
         <svg width="12" height="12" fill="currentColor">
           <use xlink:href="#icon-plus"></use>
