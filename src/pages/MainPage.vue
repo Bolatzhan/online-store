@@ -105,7 +105,7 @@ export default {
           .then((response) => this.productsData = response.data) // при успешном ответе записываем в productsData
           .catch(() => this.productsLoadingFailed = true)
           .then(() => this.productsLoading = false);
-      }, 3000);
+      }, 1000);
     },
   },
   watch: { // отслеживаем изменнение свойств page,filterPriceFrom и т.д. И если они изменились то вызываем метод который перезагрузить товары

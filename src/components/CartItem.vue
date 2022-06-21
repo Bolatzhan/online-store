@@ -41,7 +41,7 @@ export default {
         return this.item.amount;// возращает значение количества из входного параметра
       },
       set(value) { // вызывает мутацию
-        this.$store.commit('updateCartProductAmount', { productId: this.item.productId, amount: value });
+        this.$store.dispatch('updateCartProductAmount', { productId: this.item.productId, amount: value });
       },
     },
   },
