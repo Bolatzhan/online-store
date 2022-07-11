@@ -25,7 +25,7 @@
     <section class="item">
       <div class="item__pics pics">
         <div class="pics__wrapper">
-          <img width="570" height="570" :src="product.image" :alt="product.title">
+          <img width="570" height="570" :src="product.image.file.url" :alt="product.title">
         </div>
       </div>
 
@@ -43,10 +43,10 @@
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
               <ul class="colors">
-                <li class="colors__item" v-for="color in product.colorsId" :key="color">
+                <li class="colors__item" v-for="color in colors" :key="color.id">
                   <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio" name="color-item" :value="color">
-                    <span class="colors__value" :style="{backgroundColor: color}"></span>
+                    <input class="colors__radio sr-only" type="radio" name="color-item" :value="color.code">
+                    <span class="colors__value" :style="{backgroundColor: color.code}"></span>
                   </label>
                 </li>
               </ul>
@@ -171,6 +171,9 @@ export default {
     },
     category() {
       return this.productData.category;
+    },
+    colors() {
+      return this.productData.colors;
     },
   },
   methods: {

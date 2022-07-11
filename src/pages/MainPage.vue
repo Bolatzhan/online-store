@@ -42,7 +42,7 @@ export default {
       filterColorId: 0,
       page: 1, // текущая страница
       productsPerPage: 3, // число товаров которые будут отображатся на странице
-      productsData: null, // ответ от сервера
+      productsData: null, // ответ от сервера, продукты будут здесь из сервера
       productsLoading: false, // если идет загрузка она будет true если нет то false
       productsLoadingFailed: false, // ошибка при запросе
     };
@@ -98,6 +98,7 @@ export default {
               page: this.page,
               limit: this.productsPerPage,
               categoryId: this.filterCategoryId,
+              colorId: this.filterColorId,
               minPrice: this.filterPriceFrom,
               maxPrice: this.filterPriceTo
             }
@@ -105,7 +106,7 @@ export default {
           .then((response) => this.productsData = response.data) // при успешном ответе записываем в productsData
           .catch(() => this.productsLoadingFailed = true)
           .then(() => this.productsLoading = false);
-      }, 1000);
+      }, 500);
     },
   },
   watch: { // отслеживаем изменнение свойств page,filterPriceFrom и т.д. И если они изменились то вызываем метод который перезагрузить товары
@@ -119,6 +120,9 @@ export default {
       this.loadProducts();
     },
     filterCategoryId() {
+      this.loadProducts();
+    },
+    filterColorId() {
       this.loadProducts();
     },
   },

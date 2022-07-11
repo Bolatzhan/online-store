@@ -6,7 +6,7 @@ import {API_BASE_URL} from "@/config";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: { // состояние
+  state: { // состояние // Глобальное хранилище
     cartProducts: [
       // { productId: 1, amount: 2 }, // идентификатор товара и количество товара
     ],
