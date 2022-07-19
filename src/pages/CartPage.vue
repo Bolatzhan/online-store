@@ -1,12 +1,11 @@
 <template>
-  <!-- eslint-disable max-len -->
   <main class="content container">
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="index.html">
+          <router-link class="breadcrumbs__link" :to="{ name: 'main' }">
             Каталог
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link">
@@ -39,9 +38,9 @@
             Итого: <span>{{ totalPrice | numberFormat }} ₽</span>
           </p>
 
-          <button class="cart__button button button--primery" type="submit">
+          <router-link :disabled="products.length === 0" tag="button" :to="{ name: 'order' }" class="cart__button button button--primery" type="submit">
             Оформить заказ
-          </button>
+          </router-link>
         </div>
       </form>
     </section>
@@ -51,7 +50,6 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import { mapGetters } from 'vuex';
-// eslint-disable-next-line import/extensions
 import CartItem from '@/components/CartItem';
 
 export default {

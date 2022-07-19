@@ -12,6 +12,7 @@ export default new Vuex.Store({
     ],
     userAccessKey: null, // ключ пользователя
     cartProductsData: [], // товары в корзине
+    orderInfo: null,
   },
   mutations: {
     // addProductToCart(state, { productId, amount }) { // state -> состояние, payload -> любая инфа которая будет передаваться при вызове мутации
@@ -26,6 +27,13 @@ export default new Vuex.Store({
     //     });
     //   }
     // },
+    updateOrderInfo(state, orderInfo) { // записываем данные в orderInfo с помощью мутации
+      state.orderInfo = orderInfo;
+    },
+    resetCart(state) { // очищаем корзину
+      state.cartProducts = [];
+      state.cartProductsData = [];
+    },
     updateCartProductAmount(state, { productId, amount }) {
       const item = state.cartProducts.find((item) => item.productId === productId); // узнаем существует ли этот товар в корзине или нет
       if (item) { // если товар в корзине существует
@@ -50,8 +58,8 @@ export default new Vuex.Store({
       })
     }
   },
-  getters: { // получаем инфу о товаре
-    cartDetailProducts(state) {
+  getters: {
+    cartDetailProducts(state) {// получаем инфу о товаре в корзине
       return state.cartProducts.map((item) => {
         const product = state.cartProductsData.find(p => p.product.id === item.productId).product;
         return {
@@ -66,8 +74,29 @@ export default new Vuex.Store({
     cartTotalPrice(state, getters) {
       return getters.cartDetailProducts.reduce((acc, item) => (item.product.price * item.amount) + acc, 0);
     },
+    orderProducts(state) {
+      if (state.orderInfo) {
+        return state.orderInfo.basket.items.map((item) => ({
+          ...item,
+          totalPrice: item.price * item.quantity,
+          amount: item.quantity,
+        }));
+      }
+      return [];
+    },
   },
   actions: {
+    loadOrderInfo(context, orderId) {
+      return axios
+        .get(API_BASE_URL + '/api/orders/' + orderId, {
+          params: {
+            userAccessKey: context.state.userAccessKey
+          },
+        })
+        .then(response => {
+          context.commit('updateOrderInfo', response.data);
+        });
+    },
     loadCart(context) {
       return axios
         .get(API_BASE_URL + '/api/baskets', {

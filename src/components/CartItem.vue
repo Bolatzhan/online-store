@@ -1,12 +1,11 @@
 <template>
-  <!-- eslint-disable max-len -->
   <li class="cart__item product">
-    <div class="product__pic">
+    <router-link tag="div" class="product__pic" :to="{ name: 'product', params: {id:item.product.id} }">
       <img :src="item.product.image" width="120" height="120" alt="item.product.title">
-    </div>
-    <h3 class="product__title">
+    </router-link>
+    <router-link tag="h3" class="product__title" :to="{ name: 'product', params: {id:item.product.id} }">
       {{ item.product.title }}
-    </h3>
+    </router-link>
     <!--              <p class="product__info">-->
     <!--                Объем: <span>128GB</span>-->
     <!--              </p>-->
@@ -28,7 +27,6 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import { mapMutations } from 'vuex';
-// eslint-disable-next-line import/extensions
 import CartAmount from '@/components/CartAmount';
 
 export default {
