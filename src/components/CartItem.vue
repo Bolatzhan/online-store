@@ -26,7 +26,6 @@
 
 <script>
 import numberFormat from '@/helpers/numberFormat';
-import { mapMutations } from 'vuex';
 import CartAmount from '@/components/CartAmount';
 
 export default {
@@ -44,7 +43,9 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({ deleteProduct: 'deleteCartProduct' }),
+    deleteProduct(productId) {
+      this.$store.dispatch('deleteCartProduct', productId);
+    },
   },
 };
 </script>
