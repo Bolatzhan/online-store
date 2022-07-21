@@ -3,14 +3,14 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="index.html">
+          <router-link class="breadcrumbs__link" :to="{ name: 'main' }">
             Каталог
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="cart.html">
+          <router-link class="breadcrumbs__link" :to="{ name: 'cart'}">
             Корзина
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link">
@@ -19,7 +19,7 @@
         </li>
       </ul>
 
-      <h1 class="content__title">
+      <h1 class="content__title" v-if="orderInfo">
         Заказ оформлен <span>№ {{ orderInfo.id }}</span>
       </h1>
     </div>
@@ -28,11 +28,11 @@
       <form class="cart__form form" action="#" method="POST">
         <div class="cart__field">
           <p class="cart__message">
-            Благодарим за&nbsp;выбор нашего магазина. На&nbsp;Вашу почту придет письмо с&nbsp;деталями заказа.
-            Наши менеджеры свяжутся с&nbsp;Вами в&nbsp;течение часа для уточнения деталей доставки.
+            Благодарим за выбор нашего магазина. На Вашу почту придет письмо с деталями заказа.
+            Наши менеджеры свяжутся с Вами в течение часа для уточнения деталей доставки.
           </p>
 
-          <ul class="dictionary">
+          <ul class="dictionary" v-if="orderInfo">
             <li class="dictionary__item">
               <span class="dictionary__key">
                 Получатель
@@ -81,7 +81,7 @@
             <OrderProduct v-for="cartProduct in orderProducts" :cartProduct="cartProduct" />
           </ul>
 
-          <div class="cart__total">
+          <div class="cart__total" v-if="orderInfo">
             <p>Доставка: <b>500 ₽</b></p>
             <p>Итого: <b>{{ orderProducts.length }}</b> товара на сумму <b>{{ orderInfo.totalPrice | numberFormat }} ₽</b></p>
           </div>
