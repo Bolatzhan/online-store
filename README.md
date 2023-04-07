@@ -1,4 +1,3 @@
-# skilbox
 
 ## Project setup
 ```
